@@ -25,7 +25,10 @@ class SelfReviewFragment: Fragment(R.layout.fragment_self_review) {
         val binding = FragmentSelfReviewBinding.inflate(inflater, container, false)
 
         val adapter = GradesListAdapter()
+
         binding.selfReviewRecyclerView.adapter = adapter
+
+        adapter.submitList(viewModel.selfReview.grades)
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }

@@ -10,11 +10,22 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="?verticalSpacing"
-        android:text="@string/self_review_question_title"
+        tools:text="Это вопрос"
         android:textAppearance="?textAppearanceHeadline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/self_review_question_block_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?verticalSpacing"
+        tools:text="Это описание"
+        android:textAppearance="?textAppearanceHeadline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/self_review_question_block_title" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/self_review_question_input_layout"
@@ -23,7 +34,7 @@
         android:layout_marginTop="?verticalSpacing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/self_review_question_block_title">
+        app:layout_constraintTop_toBottomOf="@id/self_review_question_block_description">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/self_review_question_input_text"

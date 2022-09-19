@@ -12,5 +12,8 @@ class GradesListViewHolder (
 
     fun bind(item: Grade) = with(binding) {
         data = item
+        selfReviewQuestionBlockTitle.text = item.category.name
+        selfReviewQuestionBlockDescription.text = item.category.description
+        selfReviewQuestionInputText.setText(item.comment)
     }
 }
