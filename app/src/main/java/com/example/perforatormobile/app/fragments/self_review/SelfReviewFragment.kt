@@ -27,14 +27,6 @@ class SelfReviewFragment: Fragment(R.layout.fragment_self_review) {
         val adapter = GradesListAdapter()
         binding.selfReviewRecyclerView.adapter = adapter
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect { companyList ->
-                    adapter.submitList(companyList)
-                }
-        }
-
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 }
