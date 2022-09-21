@@ -4,6 +4,7 @@
     <string name="self_review_question_input_text">Напишите ответ...</string>
     <string name="self_review_question_title">Это вопрос</string>
     <string name="required_input_text">Незаполненное поле ввода</string>
+    <string name="input_must_be_filled_text">"Поле необходимо заполнить"</string>
     <string name="login_hint">Логин</string>
     <string name="password_hint">Пароль</string>
     <string name="login_button_text">Войти</string>
@@ -12,4 +13,9 @@
     <string name="sbis_hint">СБИС</string>
     <string name="register_button_text">Зарегистрироваться</string>
     <string name="already_registered_button_text">Уже зарегистрированы?</string>
+    <string name="password_invalid_length">Пароль должен быть не короче 8 символов</string>
+    <string name="password_must_contain_uppercase_letters">Пароль должен содержать хотя бы 1 заглавную букву</string>
+    <string name="password_must_contain_lowercase_letters">Пароль должен содержать хотя бы 1 строчную букву</string>
+    <string name="password_must_contain_numbers">Пароль должен содержать хотя бы 1 цифру</string>
+    <string name="incorrect_phone_format">Неверный формат телефона</string>
 </resources>
