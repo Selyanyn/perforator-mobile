@@ -3,8 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_login.xml" value="0.109375" />
-        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_registration.xml" value="0.109375" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_login.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_registration.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_self_review.xml" value="0.2" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/item_self_review_question.xml" value="0.109375" />
       </map>

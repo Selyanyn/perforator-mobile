@@ -8,4 +8,8 @@
     <string name="password_hint">Пароль</string>
     <string name="login_button_text">Войти</string>
     <string name="login_not_registered_button_text">Не зарегистрированы?</string>
+    <string name="phone_hint">Телефон</string>
+    <string name="sbis_hint">СБИС</string>
+    <string name="register_button_text">Зарегистрироваться</string>
+    <string name="already_registered_button_text">Уже зарегистрированы?</string>
 </resources>
