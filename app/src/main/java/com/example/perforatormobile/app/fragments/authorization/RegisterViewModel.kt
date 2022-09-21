@@ -2,9 +2,11 @@ package com.example.perforatormobile.app.fragments.authorization
 
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.perforatormobile.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class RegisterViewModel: ViewModel() {
     private val _username = MutableStateFlow("")
@@ -25,6 +27,29 @@ class RegisterViewModel: ViewModel() {
     val editPasswordHelper: StateFlow<Int?> = _editPasswordHelper
     val editPhoneHelper: StateFlow<Int?> = _editPhoneHelper
 
+    fun onUserNameChanged(userName: String) {
+        if (userName == _username.value) return
+        viewModelScope.launch {
+            validateForNonEmptyField(userName, _editUserNameHelper)
+            _username.value = userName
+        }
+    }
+
+    fun onPasswordChanged(password: String) {
+        if (password == _password.value) return
+        viewModelScope.launch {
+            validatePassword(password)
+            _password.value = password
+        }
+    }
+
+    fun onPhoneChanged(phone: String) {
+        if (phone == _phone.value) return
+        viewModelScope.launch {
+            validatePhone(phone)
+            _phone.value = phone
+        }
+    }
 
     private fun validateForNonEmptyField(field: String, helper: MutableStateFlow<Int?>) {
         helper.value = if (field.isNotEmpty()) {
