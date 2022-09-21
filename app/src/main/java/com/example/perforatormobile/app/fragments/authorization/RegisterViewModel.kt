@@ -13,8 +13,6 @@ class RegisterViewModel: ViewModel() {
     private val _editPasswordHelper = MutableStateFlow<Int?>(R.string.input_must_be_filled_text)
     private val _phone = MutableStateFlow("")
     private val _editPhoneHelper = MutableStateFlow<Int?>(R.string.input_must_be_filled_text)
-    private val _sbis = MutableStateFlow("")
-    private val _editSbisHelper = MutableStateFlow<Int?>(R.string.input_must_be_filled_text)
 
 
     private val _showDialog = MutableStateFlow(false)
@@ -26,7 +24,6 @@ class RegisterViewModel: ViewModel() {
     val editUserNameHelper: StateFlow<Int?> = _editUserNameHelper
     val editPasswordHelper: StateFlow<Int?> = _editPasswordHelper
     val editPhoneHelper: StateFlow<Int?> = _editPhoneHelper
-    val editSbisHelper: StateFlow<Int?> = _editSbisHelper
 
 
     private fun validateForNonEmptyField(field: String, helper: MutableStateFlow<Int?>) {
