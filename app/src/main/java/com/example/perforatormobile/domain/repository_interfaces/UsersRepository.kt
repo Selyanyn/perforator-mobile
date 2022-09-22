@@ -2,7 +2,7 @@ package com.example.perforatormobile.domain.repository_interfaces
 
 import com.example.perforatormobile.domain.entities.Person
 
-interface UserRepository {
+interface UsersRepository {
     //Возвращаем токены?
     suspend fun registerUser(userName: String, password: String, phone: String): String
 
