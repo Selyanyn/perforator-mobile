@@ -4,11 +4,17 @@ import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.perforatormobile.R
+import com.example.perforatormobile.domain.usecases.authorization.RegisterUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegisterViewModel: ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    private val registerUseCase: RegisterUseCase
+): ViewModel() {
     private val _username = MutableStateFlow("")
     private val _editUserNameHelper = MutableStateFlow<Int?>(R.string.input_must_be_filled_text)
     private val _password = MutableStateFlow("")
@@ -84,5 +90,19 @@ class RegisterViewModel: ViewModel() {
             null
         }
 
+    }
+
+    fun onRegisterButtonClicked() {
+        viewModelScope.launch {
+            if (_editUserNameHelper.value == null && _editPasswordHelper.value == null &&
+                _editPhoneHelper.value == null
+            ) {
+                registerUseCase(_username.toString(), _password.toString(), _phone.toString())
+            }
+        }
+    }
+
+    fun onAlreadyRegisteredButtonClicked() {
+        //TODO: nav shenanigans
     }
 }

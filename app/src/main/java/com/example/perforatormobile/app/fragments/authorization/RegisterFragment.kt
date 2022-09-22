@@ -55,6 +55,10 @@ class RegisterFragment: Fragment() {
                 }
         }
 
+        binding.registerButton.setOnClickListener {
+            viewModel.on
+        }
+
         return binding.root
     }
 }
