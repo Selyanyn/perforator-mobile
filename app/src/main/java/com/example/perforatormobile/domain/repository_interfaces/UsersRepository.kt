@@ -1,12 +1,20 @@
 package com.example.perforatormobile.domain.repository_interfaces
 
 import com.example.perforatormobile.domain.entities.Person
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface UsersRepository {
     //Возвращаем токены?
-    suspend fun registerUser(userName: String, password: String, phone: String): String
+    @GET("registration/")
+    suspend fun registerUser(@Query("username") userName: String,
+                             @Query("password") password: String,
+                             @Query("phone") phone: String): Response<String>
 
-    suspend fun loginUser(userName: String, password: String): String
+    @GET("api/token/")
+    suspend fun loginUser(@Query("username") userName: String,
+                          @Query("password") password: String): Response<String>
 
     suspend fun updateUserInfo(person: Person)
 
