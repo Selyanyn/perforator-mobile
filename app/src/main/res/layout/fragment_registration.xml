@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/app_name"
+        android:id="@+id/app_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
@@ -20,7 +19,7 @@
         android:id="@+id/edit_login_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_name"
+        app:layout_constraintTop_toBottomOf="@+id/app_name_text_view"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         app:helperText="@string/required_input_text"
         app:helperTextTextColor="?colorSecondary"
@@ -30,25 +29,21 @@
         <com.google.android.material.textfield.TextInputEditText
             android:hint="@string/login_hint"
             android:id="@+id/edit_login"
-            android:lines="1"
-            android:autofillHints="login"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_password_layout"
-        android:layout_marginTop="?verticalSpacing"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_login_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         app:counterEnabled="true"
         app:counterMaxLength="16"
         app:counterTextColor="?colorSecondary"
-        app:passwordToggleEnabled="true"
         app:helperText="@string/required_input_text"
         app:helperTextTextColor="?colorSecondary"
-        app:layout_constraintTop_toBottomOf="@id/edit_login_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
