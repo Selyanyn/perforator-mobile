@@ -10,7 +10,8 @@ import javax.inject.Inject
 class ReviewsRepositoryImplementation @Inject constructor(): ReviewsRepository {
     override fun getSelfReview(): Review {
         return Review(1, true,
-            listOf(Grade(1, Category(1, "cat", "cat_desc"), 5, "great!")),
+            listOf(Grade(1, Category(1, "cat question", "cat_desc"), 5, "great!"),
+                Grade(2, Category(2, "dog question", "dog_desc"), 3, "ok...")),
         false)
     }
 

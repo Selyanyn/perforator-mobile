@@ -11,10 +11,18 @@ class GradesListAdapter : ListAdapter<Grade, GradesListViewHolder>(GradeDiffCall
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         LayoutInflater.from(parent.context).let { inflater ->
             GradesListViewHolder(
-                ItemSelfReviewQuestionBinding.inflate(inflater, parent, false)
+                ItemSelfReviewQuestionBinding.inflate(inflater, parent, false),
+                ::updateCommentInAdapter
             )
         }
 
-    override fun onBindViewHolder(holder: GradesListViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: GradesListViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    private fun updateCommentInAdapter(position: Int, text: String) {
+        val element = currentList[position].copy(comment = text)
+        currentList[position] = element
+        //notifyItemChanged() ?
+    }
 }

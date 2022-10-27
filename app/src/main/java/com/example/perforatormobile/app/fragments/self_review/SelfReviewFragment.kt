@@ -1,6 +1,7 @@
 package com.example.perforatormobile.app.fragments.self_review
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,15 +22,16 @@ class SelfReviewFragment: Fragment(R.layout.fragment_self_review) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentSelfReviewBinding.inflate(inflater, container, false)
 
         val adapter = GradesListAdapter()
 
         binding.selfReviewRecyclerView.adapter = adapter
 
+        Log.i("grade", "Length: " + viewModel.selfReview.grades.size.toString())
         adapter.submitList(viewModel.selfReview.grades)
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return binding.root
     }
 }

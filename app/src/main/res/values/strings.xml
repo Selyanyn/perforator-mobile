@@ -18,4 +18,9 @@
     <string name="password_must_contain_lowercase_letters">Пароль должен содержать хотя бы 1 строчную букву</string>
     <string name="password_must_contain_numbers">Пароль должен содержать хотя бы 1 цифру</string>
     <string name="incorrect_phone_format">Неверный формат телефона</string>
+    <string name="send_self_review_form_button_text">Отправить форму</string>
+    <string name="send_self_review_form_as_draft_button_text">Сохранить как черновик</string>
+    <string name="self_review_peers_title">Оценивающие (пиры)</string>
+    <string name="self_review_peers_block_description">Люди, с которыми вы взаимодействуете по рабочим вопросам. Рекомендуем выбрать до 5–7 человек.</string>
+    <string name="add_peers_button">Добавить пиров</string>
 </resources>
