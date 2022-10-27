@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.perforatormobile.R
 import com.example.perforatormobile.databinding.FragmentSelfReviewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SelfReviewFragment: Fragment(R.layout.fragment_self_review) {
@@ -25,12 +23,15 @@ class SelfReviewFragment: Fragment(R.layout.fragment_self_review) {
     ): View {
         val binding = FragmentSelfReviewBinding.inflate(inflater, container, false)
 
-        val adapter = GradesListAdapter()
+        val gradesAdapter = GradesListAdapter()
+        binding.selfReviewRecyclerView.adapter = gradesAdapter
+        gradesAdapter.submitList(viewModel.selfReview.grades)
 
-        binding.selfReviewRecyclerView.adapter = adapter
-
-        Log.i("grade", "Length: " + viewModel.selfReview.grades.size.toString())
-        adapter.submitList(viewModel.selfReview.grades)
+        val peersAdapter = PeersListAdapter { position ->
+            viewModel.peers.removeAt(position)
+        }
+        binding.selfReviewPeersRecyclerView.adapter = peersAdapter
+        peersAdapter.submitList(viewModel.peers)
 
         return binding.root
     }
