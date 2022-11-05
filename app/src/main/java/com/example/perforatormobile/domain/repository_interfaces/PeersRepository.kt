@@ -10,7 +10,7 @@ interface PeersRepository {
 
     suspend fun savePeers(ids: List<Int>)
 
-    fun searchPeers(firstName: String): Flow<List<Person>>
+    fun searchPeers(firstName: String): List<Person>
 
     fun getAllTeammates(id: Int): Flow<List<Person>>
 

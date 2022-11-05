@@ -23,4 +23,5 @@
     <string name="self_review_peers_title">Оценивающие (пиры)</string>
     <string name="self_review_peers_block_description">Люди, с которыми вы взаимодействуете по рабочим вопросам. Рекомендуем выбрать до 5–7 человек.</string>
     <string name="add_peers_button">Добавить пиров</string>
+    <string name="search_peers">Поиск пиров</string>
 </resources>
