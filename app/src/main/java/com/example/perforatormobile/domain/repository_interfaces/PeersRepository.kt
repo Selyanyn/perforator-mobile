@@ -2,6 +2,7 @@ package com.example.perforatormobile.domain.repository_interfaces
 
 import com.example.perforatormobile.domain.entities.Person
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface PeersRepository {
     fun getAllCurrentUserPeers(): Flow<List<Person>>
@@ -10,7 +11,7 @@ interface PeersRepository {
 
     suspend fun savePeers(ids: List<Int>)
 
-    fun searchPeers(firstName: String): List<Person>
+    fun searchNewPeers(firstName: String): List<Person>
 
     fun getAllTeammates(id: Int): Flow<List<Person>>
 

@@ -21,8 +21,9 @@ class GradesListAdapter : ListAdapter<Grade, GradesListViewHolder>(GradeDiffCall
     }
 
     private fun updateCommentInAdapter(position: Int, text: String) {
-        val element = currentList[position].copy(comment = text)
-        currentList[position] = element
+        val elementList = currentList.toMutableList()
+        elementList[position] = elementList[position].copy(comment = text);
+        submitList(elementList)
         //notifyItemChanged() ?
     }
 }

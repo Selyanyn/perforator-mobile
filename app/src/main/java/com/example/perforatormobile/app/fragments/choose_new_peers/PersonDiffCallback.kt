@@ -1,4 +1,4 @@
-package com.example.perforatormobile.app.fragments.self_review
+package com.example.perforatormobile.app.fragments.choose_new_peers
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.perforatormobile.domain.entities.Person

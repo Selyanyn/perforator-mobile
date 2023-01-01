@@ -18,8 +18,9 @@ class PeersRepositoryImplementation @Inject constructor(): PeersRepository {
         TODO("Not yet implemented")
     }
 
-    override fun searchPeers(firstName: String): List<Person> {
-        return listOf<Person>(Person(1, 1, "Sasha", "", "1"))
+    override fun searchNewPeers(firstName: String): List<Person> {
+        return listOf(Person(4, 4, "Sasha", "https://media-be.chewy.com/wp-content/uploads/shutterstock_492574771.jpg", "1"),
+            Person(5, 5, "Xora", "https://media-be.chewy.com/wp-content/uploads/shutterstock_492574771.jpg", "1"))
     }
 
     override fun getAllTeammates(id: Int): Flow<List<Person>> {

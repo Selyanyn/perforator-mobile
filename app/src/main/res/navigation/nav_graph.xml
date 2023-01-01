@@ -33,6 +33,22 @@
     <fragment
         android:id="@+id/self_review"
         android:name="com.example.perforatormobile.app.fragments.self_review.SelfReviewFragment"
-        tools:layout="@layout/fragment_self_review" />
+        tools:layout="@layout/fragment_self_review">
+        <action
+            android:id="@+id/action_navigation_self_review_to_choose_peers"
+            app:destination="@id/choose_peers"
+            app:popUpTo="@id/self_review"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
 
+    <fragment
+        android:id="@+id/choose_peers"
+        android:name="com.example.perforatormobile.app.fragments.choose_new_peers.ChoosePeersFragment"
+        tools:layout="@layout/fragment_choose_peers">
+        <action
+            android:id="@+id/action_navigation_choose_peers_to_self_review"
+            app:destination="@id/self_review"
+            />
+    </fragment>
 </navigation>
