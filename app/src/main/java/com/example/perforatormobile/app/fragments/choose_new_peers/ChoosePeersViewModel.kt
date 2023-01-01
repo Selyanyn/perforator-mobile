@@ -19,6 +19,7 @@ class ChoosePeersViewModel @Inject constructor(
 
     private val _searchPeersText = MutableStateFlow("")
     val searchedPeers = MutableStateFlow(searchNewPeersUseCase("x"))
+    val chosenPeers: MutableList<Person> = ArrayList()
 
     fun doOnSearchPeersTextChanged(firstName: String) {
         if (firstName == _searchPeersText.value) return
@@ -28,7 +29,8 @@ class ChoosePeersViewModel @Inject constructor(
         }
     }
 
-    fun removePeerAtPosition(position: Int) {
+    fun removeAndSavePeerAtPosition(position: Int) {
+        chosenPeers.add(searchedPeers.value[position])
         searchedPeers.value.removeAt(position)
     }
 }

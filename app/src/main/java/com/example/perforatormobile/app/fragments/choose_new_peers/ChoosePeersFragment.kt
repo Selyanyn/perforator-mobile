@@ -12,7 +12,9 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.perforatormobile.R
+import com.example.perforatormobile.app.fragments.self_review.SelfReviewFragment.Companion.CHOSEN_PEERS
 import com.example.perforatormobile.databinding.FragmentChoosePeersBinding
+import com.example.perforatormobile.domain.entities.PersonList
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,7 +32,7 @@ class ChoosePeersFragment: Fragment(R.layout.fragment_choose_peers) {
         val binding = FragmentChoosePeersBinding.inflate(inflater, container, false)
 
         val peersAdapter = PeersListAdapter { position ->
-            viewModel.removePeerAtPosition(position)
+            viewModel.removeAndSavePeerAtPosition(position)
         }
         binding.peerSearchRecyclerView.adapter = peersAdapter
         viewLifecycleOwner.lifecycleScope.launch {
@@ -48,7 +50,10 @@ class ChoosePeersFragment: Fragment(R.layout.fragment_choose_peers) {
         }
 
         binding.saveChosenPeersButton.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_choose_peers_to_self_review)
+            val arg = Bundle().apply {
+                putParcelable(CHOSEN_PEERS, PersonList(viewModel.chosenPeers))
+            }
+            findNavController().navigate(R.id.action_navigation_choose_peers_to_self_review, arg)
         }
 
         return binding.root

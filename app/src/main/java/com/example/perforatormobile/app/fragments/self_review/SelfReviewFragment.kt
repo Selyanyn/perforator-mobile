@@ -49,6 +49,10 @@ class SelfReviewFragment: Fragment(R.layout.fragment_choose_peers) {
         return binding.root
     }
 
+    companion object {
+        const val CHOSEN_PEERS = "chosenPeers"
+    }
+
     /*private fun providePeerPopup(popupView: View): PopupWindow
     {
         val popUpWindow = PopupWindow(popupView, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT)
