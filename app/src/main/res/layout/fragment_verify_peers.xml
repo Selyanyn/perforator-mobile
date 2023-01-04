@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/verify_peers_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/verify_peers_title"
+        android:textAppearance="?textAppearanceHeadline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/users_not_sent_self_review_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/verify_peers_title"
+        android:text="@string/users_not_sent_self_review_text"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/users_not_sent_self_review_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/users_not_sent_self_review_title"
+        tools:listitem="@layout/item_peer_to_verify"
+        />
+
+    <TextView
+        android:id="@+id/not_verified_users_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/users_not_sent_self_review_recycler_view"
+        android:text="@string/not_verified_users_title"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/not_verified_users_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/not_verified_users_title"
+        tools:listitem="@layout/item_peer_to_verify"
+        />
+
+    <TextView
+        android:id="@+id/verified_users_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/not_verified_users_recycler_view"
+        android:text="@string/verified_users_title"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/verified_users_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/verified_users_title"
+        tools:listitem="@layout/item_peer_to_verify"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

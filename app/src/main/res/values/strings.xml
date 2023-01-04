@@ -24,6 +24,10 @@
     <string name="self_review_peers_block_description">Люди, с которыми вы взаимодействуете по рабочим вопросам. Рекомендуем выбрать до 5–7 человек.</string>
     <string name="add_peers_button">Добавить пиров</string>
     <string name="search_peers">Поиск пиров</string>
-    <string name="peers_search_edit_text_hint">Введите имя пира...</string>
+    <string name="peers_search_edit_text_hint">Введите имя пира…</string>
     <string name="save_chosen_peers_button_text">Сохранить выбор</string>
+    <string name="verify_peers_title">Подтверждение пиров</string>
+    <string name="users_not_sent_self_review_text">Не отправившие селф-ревью</string>
+    <string name="not_verified_users_title">Неподтверждённые пользователи</string>
+    <string name="verified_users_title">Подтверждённые пользователи</string>
 </resources>

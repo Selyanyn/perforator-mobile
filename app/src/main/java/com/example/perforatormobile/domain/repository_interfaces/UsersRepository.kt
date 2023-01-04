@@ -1,6 +1,7 @@
 package com.example.perforatormobile.domain.repository_interfaces
 
 import com.example.perforatormobile.domain.entities.Person
+import com.example.perforatormobile.domain.entities.User
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -19,4 +20,6 @@ interface UsersRepository {
     suspend fun updateUserInfo(person: Person)
 
     suspend fun logOut()
+
+    fun getCurrentUser(): User
 }

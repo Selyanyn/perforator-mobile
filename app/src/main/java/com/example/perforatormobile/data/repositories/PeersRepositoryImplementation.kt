@@ -1,5 +1,6 @@
 package com.example.perforatormobile.data.repositories
 
+import com.example.perforatormobile.data.repositories.data_classes.SubordinatesBySelfReviewStatus
 import com.example.perforatormobile.domain.entities.Person
 import com.example.perforatormobile.domain.repository_interfaces.PeersRepository
 import kotlinx.coroutines.flow.Flow
@@ -27,8 +28,12 @@ class PeersRepositoryImplementation @Inject constructor(): PeersRepository {
         TODO("Not yet implemented")
     }
 
-    override fun getAllSubordinates(id: Int): Flow<List<Person>> {
-        TODO("Not yet implemented")
+    override fun getAllSubordinates(id: Int): SubordinatesBySelfReviewStatus {
+        return SubordinatesBySelfReviewStatus(
+            listOf(Person(4, 4, "Sasha", "https://media-be.chewy.com/wp-content/uploads/shutterstock_492574771.jpg", "1")),
+            listOf(Person(5, 5, "Xora", "https://media-be.chewy.com/wp-content/uploads/shutterstock_492574771.jpg", "1")),
+            listOf(Person(6, 6, "Elusive", "https://media-be.chewy.com/wp-content/uploads/shutterstock_492574771.jpg", "1")),
+        )
     }
 
     override fun isUserApproved(id: Int): Boolean {
