@@ -8,5 +8,5 @@ class GetAllSubordinatesUseCase @Inject constructor(
     private val peersRepository: PeersRepository,
     private val getCurrentUserUseCase: GetCurrentUserUseCase
 ) {
-    operator fun invoke() = peersRepository.getAllSubordinates(getCurrentUserUseCase().id)
+    suspend operator fun invoke() = peersRepository.getAllSubordinates(getCurrentUserUseCase().id)
 }

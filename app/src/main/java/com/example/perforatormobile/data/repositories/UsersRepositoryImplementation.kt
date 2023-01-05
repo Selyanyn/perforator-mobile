@@ -4,8 +4,9 @@ import com.example.perforatormobile.domain.entities.Person
 import com.example.perforatormobile.domain.entities.User
 import com.example.perforatormobile.domain.repository_interfaces.UsersRepository
 import retrofit2.Response
+import javax.inject.Inject
 
-class UsersRepositoryImplementation: UsersRepository {
+class UsersRepositoryImplementation @Inject constructor(): UsersRepository {
     override suspend fun registerUser(
         userName: String,
         password: String,
@@ -26,7 +27,7 @@ class UsersRepositoryImplementation: UsersRepository {
         TODO("Not yet implemented")
     }
 
-    override fun getCurrentUser(): User {
+    override suspend fun getCurrentUser(): User {
         return User(0, 0, "")
     }
 }

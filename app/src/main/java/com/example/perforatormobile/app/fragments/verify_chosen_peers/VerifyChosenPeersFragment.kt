@@ -17,6 +17,7 @@ import com.example.perforatormobile.databinding.FragmentChoosePeersBinding
 import com.example.perforatormobile.databinding.FragmentVerifyPeersBinding
 import com.example.perforatormobile.domain.entities.PersonList
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -34,33 +35,23 @@ class VerifyChosenPeersFragment: Fragment(R.layout.fragment_verify_peers) {
 
         val subordinatesNotFinishedSelfReviewAdapter = VerifiedPeersListAdapter { _ -> }
         binding.usersNotSentSelfReviewRecyclerView.adapter = subordinatesNotFinishedSelfReviewAdapter
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.subordinatesNotFinishedSelfReview
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect { newPotentialPeers ->
-                    subordinatesNotFinishedSelfReviewAdapter.submitList(newPotentialPeers)
-                }
-        }
 
         val notVerifiedPeersListAdapter = VerifiedPeersListAdapter { position ->
             // TODO: nav to ChoosePeersFragment
         }
         binding.usersNotSentSelfReviewRecyclerView.adapter = notVerifiedPeersListAdapter
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.notVerifiedSubordinates
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect { newPotentialPeers ->
-                    notVerifiedPeersListAdapter.submitList(newPotentialPeers)
-                }
-        }
 
         val verifiedPeersListAdapter = VerifiedPeersListAdapter { _ -> }
         binding.verifiedUsersRecyclerView.adapter = verifiedPeersListAdapter
+
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.verifiedSubordinates
+            viewModel.subordinates
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect { newPotentialPeers ->
-                    verifiedPeersListAdapter.submitList(newPotentialPeers)
+                .collect { subordinates ->
+                    subordinatesNotFinishedSelfReviewAdapter.submitList(subordinates.subordinatesNotFinishedSelfReview)
+                    notVerifiedPeersListAdapter.submitList(subordinates.notVerifiedSubordinates)
+                    verifiedPeersListAdapter.submitList(subordinates.verifiedSubordinates)
+
                 }
         }
 

@@ -1,22 +1,16 @@
 package com.example.perforatormobile.app.fragments.self_review
 
-import android.app.ActionBar
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupWindow
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.perforatormobile.R
 import com.example.perforatormobile.app.fragments.choose_new_peers.PeersListAdapter
 import com.example.perforatormobile.databinding.FragmentSelfReviewBinding
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 
 

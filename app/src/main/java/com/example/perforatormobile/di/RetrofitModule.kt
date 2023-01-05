@@ -22,7 +22,7 @@ object RetrofitModule {
         .baseUrl(BASE_URL)
         .build()
 
-    @Provides
-    @Singleton
-    fun provideUserRepository(retrofit : Retrofit) : UsersRepository = retrofit.create(UsersRepository::class.java)
+    //@Provides
+    //@Singleton
+    //fun provideUserRepository(retrofit : Retrofit) : UsersRepository = retrofit.create(UsersRepository::class.java)
 }

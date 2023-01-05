@@ -30,4 +30,8 @@
     <string name="users_not_sent_self_review_text">Не отправившие селф-ревью</string>
     <string name="not_verified_users_title">Неподтверждённые пользователи</string>
     <string name="verified_users_title">Подтверждённые пользователи</string>
+    <string name="chosen_peers_fragment_title">Выбор пиров</string>
+    <string name="peers_review_menu_item_title">Ревью сотрудников</string>
+    <string name="subordinates_menu_item_title">Подчинённые</string>
+    <string name="results_menu_item_title">Итоги</string>
 </resources>

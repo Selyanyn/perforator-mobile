@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/drawable/ic_menu_self_review.xml" value="0.1" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/drawable/self_review_icon.xml" value="0.1" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/activity_main.xml" value="0.1671875" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_choose_peers.xml" value="0.21354166666666666" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_chosen_peers.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_login.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_registration.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_self_review.xml" value="0.2" />
@@ -13,6 +17,7 @@
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/item_peer_to_verify.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/item_self_review_question.xml" value="0.109375" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/pop_up_peers_search.xml" value="0.16614583333333333" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2" />
       </map>
     </option>
   </component>
