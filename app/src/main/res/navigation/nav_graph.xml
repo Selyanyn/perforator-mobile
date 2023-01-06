@@ -54,6 +54,10 @@
             android:id="@+id/action_navigation_choose_peers_to_self_review"
             app:destination="@id/navigation_self_review"
             />
+        <action
+            android:id="@+id/action_navigation_choose_peers_to_chosen_peers"
+            app:destination="@id/navigation_chosen_peers"
+            />
     </fragment>
 
     <fragment
@@ -63,6 +67,24 @@
         <action
             android:id="@+id/action_navigation_verify_peers_to_self_review"
             app:destination="@id/navigation_self_review"
+            />
+        <action
+            android:id="@+id/action_navigation_verify_peers_to_chosen_peers"
+            app:destination="@id/navigation_chosen_peers"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_chosen_peers"
+        android:name="com.example.perforatormobile.app.fragments.chosen_peers.ChosenPeersFragment"
+        tools:layout="@layout/fragment_chosen_peers">
+        <action
+            android:id="@+id/action_navigation_chosen_peers_to_verify_peers"
+            app:destination="@id/navigation_verify_peers"
+            />
+        <action
+            android:id="@+id/action_navigation_chosen_peers_to_choose_peers"
+            app:destination="@id/navigation_choose_peers"
             />
     </fragment>
 </navigation>

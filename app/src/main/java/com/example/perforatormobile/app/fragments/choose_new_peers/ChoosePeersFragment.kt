@@ -53,9 +53,15 @@ class ChoosePeersFragment: Fragment(R.layout.fragment_choose_peers) {
             val arg = Bundle().apply {
                 putParcelable(CHOSEN_PEERS, PersonList(viewModel.chosenPeers))
             }
-            findNavController().navigate(R.id.action_navigation_choose_peers_to_self_review, arg)
+            findNavController().navigate(viewModel.navigateAction, arg)
         }
 
         return binding.root
+    }
+
+    companion object {
+        const val NAVIGATE_ACTION = "navigate_action"
+        const val NAVIGATE_ACTION_TO_SELF_REVIEW = R.id.action_navigation_choose_peers_to_self_review
+        const val NAVIGATE_ACTION_TO_CHOSEN_PEERS = R.id.action_navigation_choose_peers_to_chosen_peers
     }
 }

@@ -38,14 +38,13 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.menu_bar_view)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.navigation_login,
-                R.id.navigation_register,
-                R.id.navigation_choose_peers -> {
-                    bottomNavigationView.visibility = View.GONE
+                R.id.navigation_self_review,
+                R.id.navigation_verify_peers -> {
+                    bottomNavigationView.visibility = View.VISIBLE
                     bottomNavigationView.setupWithNavController(navController)
                 }
                 else -> {
-                    bottomNavigationView.visibility = View.VISIBLE
+                    bottomNavigationView.visibility = View.GONE
                 }
             }
 

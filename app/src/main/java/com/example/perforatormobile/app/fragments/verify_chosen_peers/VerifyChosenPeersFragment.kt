@@ -36,10 +36,13 @@ class VerifyChosenPeersFragment: Fragment(R.layout.fragment_verify_peers) {
         val subordinatesNotFinishedSelfReviewAdapter = VerifiedPeersListAdapter { _ -> }
         binding.usersNotSentSelfReviewRecyclerView.adapter = subordinatesNotFinishedSelfReviewAdapter
 
-        val notVerifiedPeersListAdapter = VerifiedPeersListAdapter { position ->
-            // TODO: nav to ChoosePeersFragment
+        val notVerifiedPeersListAdapter = VerifiedPeersListAdapter { userId ->
+            val arg = Bundle().apply {
+                putInt(SUBORDINATE_ID, userId)
+            }
+            findNavController().navigate(R.id.action_navigation_verify_peers_to_chosen_peers, arg)
         }
-        binding.usersNotSentSelfReviewRecyclerView.adapter = notVerifiedPeersListAdapter
+        binding.notVerifiedUsersRecyclerView.adapter = notVerifiedPeersListAdapter
 
         val verifiedPeersListAdapter = VerifiedPeersListAdapter { _ -> }
         binding.verifiedUsersRecyclerView.adapter = verifiedPeersListAdapter
@@ -51,10 +54,13 @@ class VerifyChosenPeersFragment: Fragment(R.layout.fragment_verify_peers) {
                     subordinatesNotFinishedSelfReviewAdapter.submitList(subordinates.subordinatesNotFinishedSelfReview)
                     notVerifiedPeersListAdapter.submitList(subordinates.notVerifiedSubordinates)
                     verifiedPeersListAdapter.submitList(subordinates.verifiedSubordinates)
-
                 }
         }
 
         return binding.root
+    }
+
+    companion object {
+        const val SUBORDINATE_ID = "subordinateId"
     }
 }
