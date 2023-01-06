@@ -35,4 +35,5 @@
     <string name="peers_review_menu_item_title">Ревью сотрудников</string>
     <string name="subordinates_menu_item_title">Подчинённые</string>
     <string name="results_menu_item_title">Итоги</string>
+    <string name="review_peers_fragment_title">Пиры, которых нужно оценить</string>
 </resources>

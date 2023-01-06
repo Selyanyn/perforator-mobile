@@ -7,15 +7,15 @@
         android:orderInCategory="1" />
     <item
         android:id="@id/navigation_verify_peers"
-        android:title="@string/peers_review_menu_item_title"
-        android:icon="@drawable/ic_menu_self_review"
-        android:orderInCategory="2" />
-    <!--<item
-        android:id="@+id/subordinates_menu_item"
         android:title="@string/subordinates_menu_item_title"
         android:icon="@drawable/ic_menu_self_review"
-        android:orderInCategory="3" />
+        android:orderInCategory="2" />
     <item
+        android:id="@+id/navigation_peers_review"
+        android:title="@string/peers_review_menu_item_title"
+        android:icon="@drawable/ic_menu_self_review"
+        android:orderInCategory="3" />
+    <!--<item
         android:id="@+id/results_menu_item"
         android:title="@string/results_menu_item_title"
         android:icon="@drawable/ic_menu_self_review"
