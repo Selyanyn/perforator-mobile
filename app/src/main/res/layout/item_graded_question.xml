@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/graded_question_block_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Это вопрос"
+        android:textAppearance="?textAppearanceHeadline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/graded_question_block_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Это описание"
+        android:textAppearance="?textAppearanceHeadline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/graded_question_block_title" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/graded_question_input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/graded_question_block_description">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/graded_question_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/self_review_question_input_text"
+            android:inputType="textAutoComplete" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RatingBar
+        android:id="@+id/grade_question_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/graded_question_input_layout"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

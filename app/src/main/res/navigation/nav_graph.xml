@@ -106,5 +106,19 @@
             android:id="@+id/action_navigation_peers_review_to_verify_peers"
             app:destination="@id/navigation_verify_peers"
             />
+        <action
+            android:id="@+id/action_navigation_peers_review_to_grade_questions"
+            app:destination="@id/navigation_grade_questions"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_grade_questions"
+        android:name="com.example.perforatormobile.app.fragments.grade_questions.GradeQuestionsFragment"
+        tools:layout="@layout/fragment_grade_questions" >
+        <action
+            android:id="@+id/action_navigation_grade_questions_to_peers_review"
+            app:destination="@id/navigation_peers_review"
+            />
     </fragment>
 </navigation>

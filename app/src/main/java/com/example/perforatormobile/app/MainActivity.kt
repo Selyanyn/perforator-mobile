@@ -39,7 +39,8 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_self_review,
-                R.id.navigation_verify_peers -> {
+                R.id.navigation_verify_peers,
+                R.id.navigation_peers_review -> {
                     bottomNavigationView.visibility = View.VISIBLE
                     bottomNavigationView.setupWithNavController(navController)
                 }

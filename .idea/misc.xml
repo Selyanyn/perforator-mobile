@@ -9,11 +9,14 @@
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/activity_main.xml" value="0.1671875" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_choose_peers.xml" value="0.21354166666666666" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_chosen_peers.xml" value="0.12135416666666667" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_grade_questions.xml" value="0.13177083333333334" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_login.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_peers_review.xml" value="0.16979166666666667" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_registration.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_review_peers.xml" value="0.1" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_self_review.xml" value="0.2" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/fragment_verify_peers.xml" value="0.12135416666666667" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/item_graded_question.xml" value="0.1328125" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/item_peer.xml" value="0.176" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/item_peer_to_verify.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/PerforatorMobile/app/src/main/res/layout/item_self_review_question.xml" value="0.109375" />

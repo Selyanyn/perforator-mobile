@@ -26,8 +26,9 @@ class PeersReviewFragment: Fragment(R.layout.fragment_peers_review) {
             val arg = Bundle().apply {
                 putInt(PEER_ID, userId)
             }
-            findNavController().navigate(R.id.action_navigation_verify_peers_to_chosen_peers, arg)
+            findNavController().navigate(R.id.action_navigation_peers_review_to_grade_questions, arg)
         }
+        reviewedPeersAdapter.submitList(viewModel.peersToReview)
         binding.peersToReviewRecyclerView.adapter = reviewedPeersAdapter
 
         return binding.root
