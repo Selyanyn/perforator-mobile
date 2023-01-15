@@ -1,10 +1,13 @@
 package com.example.perforatormobile.app.fragments.authorization
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,12 +17,18 @@ import androidx.navigation.fragment.findNavController
 import com.example.perforatormobile.R
 import com.example.perforatormobile.databinding.FragmentRegistrationBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegisterFragment: Fragment() {
     private val viewModel: RegisterViewModel by viewModels()
+
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            viewModel.userPhotoURI.value = data!!.data!!
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,8 +75,41 @@ class RegisterFragment: Fragment() {
                 }
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.userPhotoURI
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect{ uri ->
+                    if (uri !== null) {
+                        binding.userImageView.setImageURI(uri)
+                    }
+                }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isUserSuccessfullyRegistered
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect { value ->
+                    if (value) {
+                        findNavController().navigate(R.id.action_navigation_registration_to_navigation_home)
+                    }
+                }
+        }
+
+        binding.userImageView.setOnClickListener {
+            openImageChooser()
+        }
+
         binding.registerButton.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_registration_to_navigation_home)
+            val cursor = requireContext().contentResolver.query(
+                viewModel.userPhotoURI.value!!,
+                arrayOf(android.provider.MediaStore.Images.ImageColumns.DATA),
+                null,
+                null
+            )!!
+            cursor.moveToFirst()
+            viewModel.userPhotoFilePath = cursor.getString(0)
+            cursor.close()
+            viewModel.onRegisterButtonClicked()
         }
 
         binding.alreadyRegisteredButton.setOnClickListener {
@@ -75,5 +117,12 @@ class RegisterFragment: Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun openImageChooser() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("images/jpeg", "images/png"))
+        resultLauncher.launch(intent)
     }
 }

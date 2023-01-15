@@ -39,4 +39,9 @@
     <string name="grade_questions_title">Ответьте на вопросы…</string>
     <string name="save_grade_questions_button">Сохранить</string>
     <string name="cant_grade_peer_button">Не могу ответить на большую часть вопросов</string>
+    <string name="results_title">Результаты performance-review</string>
+    <string name="watch_my_results_text">Посмотреть свои резульаты</string>
+    <string name="my_subordinates_results_text">Результаты моих подчинённых:</string>
+    <string name="no_subordinates_text">У вас нет подчинённых</string>
+    <string name="upload_user_image_text">Пожалуйста, загрузите фото</string>
 </resources>

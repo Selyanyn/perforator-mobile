@@ -15,9 +15,9 @@
         android:title="@string/peers_review_menu_item_title"
         android:icon="@drawable/ic_menu_self_review"
         android:orderInCategory="3" />
-    <!--<item
-        android:id="@+id/results_menu_item"
+    <item
+        android:id="@+id/navigation_results"
         android:title="@string/results_menu_item_title"
         android:icon="@drawable/ic_menu_self_review"
-        android:orderInCategory="4" />-->
+        android:orderInCategory="4" />
 </menu>

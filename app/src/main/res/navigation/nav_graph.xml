@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_navigation_self_review_to_peers_review"
             app:destination="@id/navigation_peers_review" />
+        <action
+            android:id="@+id/action_navigation_self_review_to_results"
+            app:destination="@id/navigation_results" />
     </fragment>
 
     <fragment
@@ -74,6 +77,9 @@
         <action
             android:id="@+id/action_navigation_verify_peers_to_peers_review"
             app:destination="@id/navigation_peers_review" />
+        <action
+            android:id="@+id/action_navigation_verify_peers_to_results"
+            app:destination="@id/navigation_results" />
         <action
             android:id="@+id/action_navigation_verify_peers_to_chosen_peers"
             app:destination="@id/navigation_chosen_peers"
@@ -107,6 +113,10 @@
             app:destination="@id/navigation_verify_peers"
             />
         <action
+            android:id="@+id/action_navigation_peers_review_to_results"
+            app:destination="@id/navigation_results"
+            />
+        <action
             android:id="@+id/action_navigation_peers_review_to_grade_questions"
             app:destination="@id/navigation_grade_questions"
             />
@@ -119,6 +129,36 @@
         <action
             android:id="@+id/action_navigation_grade_questions_to_peers_review"
             app:destination="@id/navigation_peers_review"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_results"
+        android:name="com.example.perforatormobile.app.fragments.results.ResultsFragment"
+        tools:layout="@layout/fragment_results" >
+        <action
+            android:id="@+id/action_navigation_results_to_user_results"
+            app:destination="@id/navigation_user_results" />
+        <action
+            android:id="@+id/action_navigation_results_to_self_review"
+            app:destination="@id/navigation_self_review"
+            />
+        <action
+            android:id="@+id/action_navigation_results_to_verify_peers"
+            app:destination="@id/navigation_verify_peers"
+            />
+        <action
+            android:id="@+id/action_navigation_results_to_peers_review"
+            app:destination="@id/navigation_peers_review" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_user_results"
+        android:name="com.example.perforatormobile.app.fragments.user_results.UserResultsFragment"
+        tools:layout="@layout/fragment_user_results" >
+        <action
+            android:id="@+id/action_navigation_user_results_to_results"
+            app:destination="@id/navigation_results"
             />
     </fragment>
 </navigation>

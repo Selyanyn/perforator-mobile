@@ -3,6 +3,7 @@ package com.example.perforatormobile.app
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.navigation.NavController
@@ -18,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val viewModel = viewModels<ActivityViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,7 +43,8 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.navigation_self_review,
                 R.id.navigation_verify_peers,
-                R.id.navigation_peers_review -> {
+                R.id.navigation_peers_review,
+                R.id.navigation_results -> {
                     bottomNavigationView.visibility = View.VISIBLE
                     bottomNavigationView.setupWithNavController(navController)
                 }

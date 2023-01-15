@@ -1,12 +1,16 @@
 package com.example.perforatormobile.app.fragments.authorization
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.perforatormobile.R
+import com.example.perforatormobile.domain.server_entities.LoginResponseData
 import com.example.perforatormobile.domain.usecases.authorization.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,6 +21,10 @@ class LoginViewModel @Inject constructor(
     private val _editUserNameHelper = MutableStateFlow<Int?>(R.string.input_must_be_filled_text)
     private val _password = MutableStateFlow("")
     private val _editPasswordHelper = MutableStateFlow<Int?>(R.string.input_must_be_filled_text)
+
+    val editUserNameHelper: StateFlow<Int?> = _editUserNameHelper
+    val editPasswordHelper: StateFlow<Int?> = _editPasswordHelper
+    val response: MutableStateFlow<Response<LoginResponseData>?> = MutableStateFlow(null)
 
     fun onUserNameChanged(userName: String) {
         if (userName == _userName.value) return
@@ -44,7 +52,7 @@ class LoginViewModel @Inject constructor(
     fun onLoginButtonClicked() {
         viewModelScope.launch {
             if (_editUserNameHelper.value == null && _editPasswordHelper.value == null) {
-                loginUseCase(_userName.toString(), _password.toString())
+                response.value = loginUseCase(_userName.value, _password.value)
             }
         }
     }

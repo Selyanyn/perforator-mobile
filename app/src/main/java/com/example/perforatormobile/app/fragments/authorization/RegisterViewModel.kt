@@ -1,5 +1,6 @@
 package com.example.perforatormobile.app.fragments.authorization
 
+import android.net.Uri
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,7 +22,8 @@ class RegisterViewModel @Inject constructor(
     private val _editPasswordHelper = MutableStateFlow<Int?>(R.string.input_must_be_filled_text)
     private val _phone = MutableStateFlow("")
     private val _editPhoneHelper = MutableStateFlow<Int?>(R.string.input_must_be_filled_text)
-
+    val userPhotoURI = MutableStateFlow<Uri?>(null)
+    val isUserSuccessfullyRegistered = MutableStateFlow(false)
 
     private val _showDialog = MutableStateFlow(false)
     private val _isUserRegistered = MutableStateFlow(false)
@@ -32,6 +34,8 @@ class RegisterViewModel @Inject constructor(
     val editUserNameHelper: StateFlow<Int?> = _editUserNameHelper
     val editPasswordHelper: StateFlow<Int?> = _editPasswordHelper
     val editPhoneHelper: StateFlow<Int?> = _editPhoneHelper
+
+    var userPhotoFilePath = ""
 
     fun onUserNameChanged(userName: String) {
         if (userName == _username.value) return
@@ -95,9 +99,14 @@ class RegisterViewModel @Inject constructor(
     fun onRegisterButtonClicked() {
         viewModelScope.launch {
             if (_editUserNameHelper.value == null && _editPasswordHelper.value == null &&
-                _editPhoneHelper.value == null
+                _editPhoneHelper.value == null && userPhotoURI.value !== null
             ) {
-                registerUseCase(_username.toString(), _password.toString(), _phone.toString())
+                registerUseCase(
+                    _username.value,
+                    _password.value,
+                    _phone.value,
+                    userPhotoFilePath
+                )
             }
         }
     }
