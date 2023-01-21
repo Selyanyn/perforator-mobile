@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetSelfReviewFormUseCase @Inject constructor(
     private val reviewsRepository: ReviewsRepository
 ) {
-    operator fun invoke() = reviewsRepository.getSelfReview()
+    suspend operator fun invoke() = reviewsRepository.getSelfReview()
 }

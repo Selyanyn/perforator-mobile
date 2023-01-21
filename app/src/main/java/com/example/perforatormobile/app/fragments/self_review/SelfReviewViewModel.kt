@@ -6,30 +6,32 @@ import androidx.lifecycle.viewModelScope
 import com.example.perforatormobile.app.fragments.self_review.SelfReviewFragment.Companion.CHOSEN_PEERS
 import com.example.perforatormobile.domain.entities.Person
 import com.example.perforatormobile.domain.entities.PersonList
+import com.example.perforatormobile.domain.entities.Review
 import com.example.perforatormobile.domain.usecases.self_review.GetSelfReviewFormUseCase
 import com.example.perforatormobile.domain.usecases.self_review.SearchNewPeersUseCase
+import com.example.perforatormobile.domain.usecases.self_review.getAllCurrentUserPeersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SelfReviewViewModel @Inject constructor(
     private val getSelfReviewFormUseCase: GetSelfReviewFormUseCase,
-    private val searchNewPeersUseCase: SearchNewPeersUseCase,
+    private val getAllCurrentUserPeersUseCase: getAllCurrentUserPeersUseCase,
     stateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val selfReview = getSelfReviewFormUseCase()
-    val chosenPeers: MutableList<Person> = if (stateHandle.contains(CHOSEN_PEERS))
-        stateHandle.get<PersonList>(CHOSEN_PEERS)!!.peersList
-        else mutableListOf(Person(userId = 1, profileId = 1, username = "Pet owner",
-            photoUrl = "https://media-be.chewy.com/wp-content/uploads/shutterstock_492574771.jpg", sbis="125"))
-    private val searchedPeers = mutableListOf<Person>()
+    val selfReview : MutableStateFlow<Review?> = MutableStateFlow(null)
+    val chosenPeers: MutableStateFlow<MutableList<Person>?> = MutableStateFlow(mutableListOf())
 
-    fun doOnSearchPeersTextChanged(firstName: String) {
-        viewModelScope.launch {
-            searchedPeers.clear()
-            searchedPeers.addAll(0, searchNewPeersUseCase(firstName))
-        }
+    suspend fun getSelfReview()
+    {
+        selfReview.value = getSelfReviewFormUseCase().body()
+    }
+
+    suspend fun fetchAllChosenPeers()
+    {
+        chosenPeers.value = getAllCurrentUserPeersUseCase().body()?.toMutableList()
     }
 }

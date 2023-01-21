@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.perforatormobile.R
 import com.example.perforatormobile.app.fragments.choose_new_peers.PeersListAdapter
 import com.example.perforatormobile.databinding.FragmentSelfReviewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -28,16 +31,29 @@ class SelfReviewFragment: Fragment(R.layout.fragment_choose_peers) {
 
         val gradesAdapter = GradesListAdapter()
         binding.selfReviewRecyclerView.adapter = gradesAdapter
-        gradesAdapter.submitList(viewModel.selfReview.grades)
 
         val peersAdapter = PeersListAdapter { position ->
-            viewModel.chosenPeers.removeAt(position)
+            viewModel.chosenPeers.value!!.removeAt(position)
         }
         binding.selfReviewPeersRecyclerView.adapter = peersAdapter
-        peersAdapter.submitList(viewModel.chosenPeers)
+        binding.selfReviewRecyclerView.isNestedScrollingEnabled = true
+        peersAdapter.submitList(viewModel.chosenPeers.value)
 
         binding.addPeersButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_self_review_to_choose_peers)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.selfReview
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect {
+                    gradesAdapter.submitList(if (it !== null) it.grades else emptyList())
+                }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getSelfReview()
+            viewModel.fetchAllChosenPeers()
         }
 
         return binding.root

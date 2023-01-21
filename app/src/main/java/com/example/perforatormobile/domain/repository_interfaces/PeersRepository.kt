@@ -4,9 +4,13 @@ import com.example.perforatormobile.data.repositories.data_classes.SubordinatesB
 import com.example.perforatormobile.domain.entities.Person
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface PeersRepository {
-    fun getAllCurrentUserPeers(): Flow<List<Person>>
+    @GET("perforator/peers/my/")
+    suspend fun getAllCurrentUserPeers(): Response<List<Person>>
 
     suspend fun deletePeers(ids: List<Int>)
 

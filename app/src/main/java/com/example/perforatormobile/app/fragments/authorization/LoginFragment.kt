@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.perforatormobile.R
+import com.example.perforatormobile.app.ActivityViewModel
 import com.example.perforatormobile.databinding.FragmentLoginBinding
+import com.example.perforatormobile.di.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -64,6 +67,11 @@ class LoginFragment: Fragment() {
                 .collect { response ->
                     val loginResponseData = response?.body()
                     if (loginResponseData?.status == "ok") {
+                        val sessionManager = ViewModelProvider(requireActivity())[ActivityViewModel::class.java].sessionManager
+                        sessionManager.saveAuthTokensBF(
+                            response.headers().values("Set-Cookie")[0].split(";")[0].split("=")[1],
+                            loginResponseData.token_f
+                        )
                         findNavController().navigate(R.id.action_navigation_login_to_navigation_home)
                     }
                 }

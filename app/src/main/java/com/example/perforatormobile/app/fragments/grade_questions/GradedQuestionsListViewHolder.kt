@@ -16,8 +16,8 @@ class GradedQuestionsListViewHolder (
 
     fun bind(item: Grade) = with(binding) {
         data = item
-        gradedQuestionBlockTitle.text = data.category.name
-        gradedQuestionBlockDescription.text = data.category.description
+        gradedQuestionBlockTitle.text = data.category?.name
+        gradedQuestionBlockDescription.text = data.category?.description
         gradedQuestionInputText.setText(data.comment)
         gradeQuestionRatingBar.numStars = 4
         gradeQuestionRatingBar.stepSize = 1.0f
