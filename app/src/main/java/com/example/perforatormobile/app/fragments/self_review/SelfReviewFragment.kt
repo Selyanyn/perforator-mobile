@@ -12,7 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.perforatormobile.R
 import com.example.perforatormobile.app.fragments.choose_new_peers.PeersListAdapter
+import com.example.perforatormobile.app.fragments.chosen_peers.ChosenPeersFragment
 import com.example.perforatormobile.databinding.FragmentSelfReviewBinding
+import com.example.perforatormobile.domain.entities.PersonList
+import com.example.perforatormobile.domain.enums.ParentFragmentEnum
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -29,7 +32,7 @@ class SelfReviewFragment: Fragment(R.layout.fragment_choose_peers) {
     ): View {
         val binding = FragmentSelfReviewBinding.inflate(inflater, container, false)
 
-        val gradesAdapter = GradesListAdapter()
+        val gradesAdapter = GradesListAdapter(viewModel::updateGrades)
         binding.selfReviewRecyclerView.adapter = gradesAdapter
 
         val peersAdapter = PeersListAdapter { position ->
@@ -40,7 +43,10 @@ class SelfReviewFragment: Fragment(R.layout.fragment_choose_peers) {
         peersAdapter.submitList(viewModel.chosenPeers.value)
 
         binding.addPeersButton.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_self_review_to_choose_peers)
+            val arg = Bundle().apply {
+                putInt(ChosenPeersFragment.PARENT_FRAGMENT, ParentFragmentEnum.SELF_REVIEW.ordinal)
+            }
+            findNavController().navigate(R.id.action_navigation_self_review_to_choose_peers, arg)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -51,9 +57,31 @@ class SelfReviewFragment: Fragment(R.layout.fragment_choose_peers) {
                 }
         }
 
+        binding.saveSelfReviewForm.setOnClickListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.saveReview(true)
+            }
+        }
+
+        binding.saveSelfReviewFormAsDraft.setOnClickListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.saveReview(false)
+            }
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getSelfReview()
             viewModel.fetchAllChosenPeers()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isSelfReviewSaved
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect {
+                    if (it) {
+                        findNavController().navigate(R.id.action_navigation_self_review_to_peers_review)
+                    }
+                }
         }
 
         return binding.root
@@ -62,20 +90,4 @@ class SelfReviewFragment: Fragment(R.layout.fragment_choose_peers) {
     companion object {
         const val CHOSEN_PEERS = "chosenPeers"
     }
-
-    /*private fun providePeerPopup(popupView: View): PopupWindow
-    {
-        val popUpWindow = PopupWindow(popupView, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT)
-        val searchInput = popupView.findViewById<TextInputEditText>(R.id.peer_search_edit_text)
-        searchInput.doOnTextChanged { text, _, _, _ ->
-            viewModel.doOnSearchPeersTextChanged(text.toString())
-        }
-        val peersList = popupView.findViewById<RecyclerView>(R.id.peer_search_recycler_view)
-        val adapter = PeersListAdapter { _ -> }
-        peersList.adapter = adapter
-        peersList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        popUpWindow.isFocusable = false
-        popUpWindow.isOutsideTouchable = false
-        return popUpWindow
-    }*/
 }

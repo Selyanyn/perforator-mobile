@@ -13,8 +13,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.perforatormobile.R
 import com.example.perforatormobile.app.fragments.self_review.SelfReviewFragment.Companion.CHOSEN_PEERS
+import com.example.perforatormobile.app.fragments.verify_chosen_peers.VerifyChosenPeersFragment
 import com.example.perforatormobile.databinding.FragmentChoosePeersBinding
 import com.example.perforatormobile.domain.entities.PersonList
+import com.example.perforatormobile.domain.enums.ParentFragmentEnum
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -31,6 +33,10 @@ class ChoosePeersFragment: Fragment(R.layout.fragment_choose_peers) {
     ): View {
         val binding = FragmentChoosePeersBinding.inflate(inflater, container, false)
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.fetchPeers()
+        }
+
         val peersAdapter = PeersListAdapter { position ->
             viewModel.removeAndSavePeerAtPosition(position)
         }
@@ -38,10 +44,8 @@ class ChoosePeersFragment: Fragment(R.layout.fragment_choose_peers) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.searchedPeers
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect { newPotentialPeers ->
-                    Log.e("XXX", "update fired$newPotentialPeers")
-                    peersAdapter.submitList(newPotentialPeers)
-                    Log.e("XXX", "${peersAdapter.currentList}")
+                .collect {
+                    peersAdapter.submitList(it)
                 }
         }
 
@@ -52,6 +56,7 @@ class ChoosePeersFragment: Fragment(R.layout.fragment_choose_peers) {
         binding.saveChosenPeersButton.setOnClickListener {
             val arg = Bundle().apply {
                 putParcelable(CHOSEN_PEERS, PersonList(viewModel.chosenPeers))
+                putInt(VerifyChosenPeersFragment.SUBORDINATE_ID, viewModel.currentUserId)
             }
             findNavController().navigate(viewModel.navigateAction, arg)
         }

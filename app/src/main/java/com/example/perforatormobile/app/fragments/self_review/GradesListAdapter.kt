@@ -6,13 +6,15 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.perforatormobile.databinding.ItemSelfReviewQuestionBinding
 import com.example.perforatormobile.domain.entities.Grade
 
-class GradesListAdapter : ListAdapter<Grade, GradesListViewHolder>(GradeDiffCallback) {
+class GradesListAdapter(
+    private val updateComment: (Int, String) -> Unit
+) : ListAdapter<Grade, GradesListViewHolder>(GradeDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         LayoutInflater.from(parent.context).let { inflater ->
             GradesListViewHolder(
                 ItemSelfReviewQuestionBinding.inflate(inflater, parent, false),
-                ::updateCommentInAdapter
+                updateComment
             )
         }
 
@@ -23,7 +25,7 @@ class GradesListAdapter : ListAdapter<Grade, GradesListViewHolder>(GradeDiffCall
     private fun updateCommentInAdapter(position: Int, text: String) {
         val elementList = currentList.toMutableList()
         elementList[position] = elementList[position].copy(comment = text);
-        submitList(elementList)
+        //submitList(elementList)
         //notifyItemChanged() ?
     }
 }

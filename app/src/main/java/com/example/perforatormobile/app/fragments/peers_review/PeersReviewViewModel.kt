@@ -1,9 +1,41 @@
 package com.example.perforatormobile.app.fragments.peers_review
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.perforatormobile.domain.entities.Person
+import com.example.perforatormobile.domain.entities.Review
+import com.example.perforatormobile.domain.server_entities.ReviewFormsStubs
+import com.example.perforatormobile.domain.usecases.reviews.GetReviewFormsStubsCase
+import com.example.perforatormobile.domain.usecases.self_review.GetAllCurrentUserPeersUseCase
+import com.example.perforatormobile.domain.usecases.self_review.GetSelfReviewFormUseCase
+import com.example.perforatormobile.domain.usecases.verify_peers.GetAllSubordinatesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
-class PeersReviewViewModel @Inject constructor(): ViewModel() {
-    val peersToReview = mutableListOf<Person>(Person(10, 10, "Rill", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1024px-Cat03.jpg", ""))
+@HiltViewModel
+class PeersReviewViewModel @Inject constructor(
+    private val getEmptyReviewFormStubs: GetReviewFormsStubsCase,
+    private val getAllCurrentUserPeers: GetAllCurrentUserPeersUseCase
+): ViewModel() {
+    val peersToReview: MutableStateFlow<List<Person>> = MutableStateFlow(emptyList())
+    val managerToReview: MutableStateFlow<Person?> = MutableStateFlow(null)
+    val subordinatesToReview: MutableStateFlow<List<Person>> = MutableStateFlow(emptyList())
+    val reviewFormStubs: MutableStateFlow<ReviewFormsStubs> = MutableStateFlow(ReviewFormsStubs())
+
+    suspend fun fetchQuestionsStubs()
+    {
+        val value = getEmptyReviewFormStubs().body()
+        if (value !== null) {
+            reviewFormStubs.value = value
+        }
+        val o = 0
+    }
+
+    suspend fun fetchPeopleToReview()
+    {
+        peersToReview.value = getAllCurrentUserPeers().body()!!
+
+    }
+
 }

@@ -9,9 +9,9 @@ data class Category(
     @SerializedName("id")
     val id: Int = 0,
     @SerializedName("name")
-    val name: String = "",
+    val name: String = "generic_name",
     @SerializedName("description")
-    val description: String = "",
+    val description: String = "generic_description",
     @SerializedName("preview_description")
-    val preview_description: String = ""
+    val preview_description: String = "generic_preview_description"
 ) : Parcelable

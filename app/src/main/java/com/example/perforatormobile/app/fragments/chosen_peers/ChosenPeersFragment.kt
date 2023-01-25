@@ -6,13 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.perforatormobile.R
+import com.example.perforatormobile.app.fragments.choose_new_peers.ChoosePeersFragment
 import com.example.perforatormobile.app.fragments.choose_new_peers.ChoosePeersFragment.Companion.NAVIGATE_ACTION
 import com.example.perforatormobile.app.fragments.choose_new_peers.PeersListAdapter
 import com.example.perforatormobile.app.fragments.verify_chosen_peers.VerifyChosenPeersFragment
 import com.example.perforatormobile.databinding.FragmentChosenPeersBinding
+import com.example.perforatormobile.domain.enums.ParentFragmentEnum
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ChosenPeersFragment: Fragment(R.layout.fragment_chosen_peers) {
     private val viewModel: ChosenPeersViewModel by viewModels()
 
@@ -32,17 +39,33 @@ class ChosenPeersFragment: Fragment(R.layout.fragment_chosen_peers) {
 
         binding.addPeersButton.setOnClickListener {
             val arg = Bundle().apply {
+                putInt(PARENT_FRAGMENT, ParentFragmentEnum.VERIFY_PEERS.ordinal)
                 putInt(NAVIGATE_ACTION, R.id.action_navigation_choose_peers_to_chosen_peers)
+                putInt(VerifyChosenPeersFragment.SUBORDINATE_ID, viewModel.currentUserId)
             }
             findNavController().navigate(R.id.action_navigation_chosen_peers_to_choose_peers, arg)
         }
 
         binding.verifyPeersButton.setOnClickListener {
-            // TODO: Send POST request to update subordinate's peer list
-            // No need to Bundle because will be updating values anyway
-            findNavController().navigate(R.id.action_navigation_choose_peers_to_self_review)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.verifyAndSavePeers()
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.arePeersSaved
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect {
+                    if (it) {
+                        findNavController().navigate(R.id.action_navigation_chosen_peers_to_verify_peers)
+                    }
+                }
         }
 
         return binding.root
+    }
+
+    companion object {
+        const val PARENT_FRAGMENT = "parentFragment"
     }
 }

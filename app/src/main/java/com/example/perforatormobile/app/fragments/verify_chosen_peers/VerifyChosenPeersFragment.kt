@@ -1,23 +1,17 @@
 package com.example.perforatormobile.app.fragments.verify_chosen_peers
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.perforatormobile.R
-import com.example.perforatormobile.app.fragments.self_review.SelfReviewFragment.Companion.CHOSEN_PEERS
-import com.example.perforatormobile.databinding.FragmentChoosePeersBinding
 import com.example.perforatormobile.databinding.FragmentVerifyPeersBinding
-import com.example.perforatormobile.domain.entities.PersonList
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -48,13 +42,31 @@ class VerifyChosenPeersFragment: Fragment(R.layout.fragment_verify_peers) {
         binding.verifiedUsersRecyclerView.adapter = verifiedPeersListAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.subordinates
+            viewModel.approvedSubordinates
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect { subordinates ->
-                    subordinatesNotFinishedSelfReviewAdapter.submitList(subordinates.subordinatesNotFinishedSelfReview)
-                    notVerifiedPeersListAdapter.submitList(subordinates.notVerifiedSubordinates)
-                    verifiedPeersListAdapter.submitList(subordinates.verifiedSubordinates)
+                .collect {
+                    verifiedPeersListAdapter.submitList(it)
                 }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.unapprovedSubordinates
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect {
+                    notVerifiedPeersListAdapter.submitList(it)
+                }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.notFinishedSubordinates
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect {
+                    subordinatesNotFinishedSelfReviewAdapter.submitList(it)
+                }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.fetchSubordinates()
         }
 
         return binding.root

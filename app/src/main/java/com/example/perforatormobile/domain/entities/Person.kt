@@ -17,5 +17,5 @@ data class Person(
     @SerializedName("sbis")
     val sbis: String = "",
     @SerializedName("approve")
-    val approve: String = ""
+    val approve: Boolean = false
 ) : Parcelable

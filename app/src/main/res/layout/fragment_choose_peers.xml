@@ -43,14 +43,4 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
 
-    <Button
-        android:id="@+id/xd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/peer_search_recycler_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="cd"
-        />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

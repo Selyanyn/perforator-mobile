@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.perforatormobile.databinding.ItemPeerBinding
 import com.example.perforatormobile.databinding.ItemPeerToVerifyBinding
+import com.example.perforatormobile.di.RetrofitModule
 import com.example.perforatormobile.domain.entities.Person
 
 class VerifiedPeersListViewHolder (
@@ -19,7 +20,8 @@ class VerifiedPeersListViewHolder (
             peerTextView.text = person.username
             val glide = Glide.with(itemView.context)
             glide.clear(peerImage)
-            glide.load(person.photoUrl).into(peerImage)
+            val url = RetrofitModule.providesBaseUrl() + person.photoUrl.trimStart('/')
+            glide.load(url).into(peerImage)
             root.setOnClickListener {
                 navigateToPeersChoosingMenu(data.userId)
             }
