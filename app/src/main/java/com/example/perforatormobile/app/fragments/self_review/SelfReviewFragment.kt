@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class SelfReviewFragment: Fragment(R.layout.fragment_choose_peers) {
+class SelfReviewFragment: Fragment(R.layout.fragment_self_review) {
 
     private val viewModel: SelfReviewViewModel by viewModels()
 

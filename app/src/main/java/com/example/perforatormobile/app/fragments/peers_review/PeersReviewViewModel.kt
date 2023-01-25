@@ -4,7 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.perforatormobile.domain.entities.Person
 import com.example.perforatormobile.domain.entities.Review
+import com.example.perforatormobile.domain.server_entities.ListsOfPeopleToGrade
 import com.example.perforatormobile.domain.server_entities.ReviewFormsStubs
+import com.example.perforatormobile.domain.usecases.my_team.GetMyManagerUseCase
 import com.example.perforatormobile.domain.usecases.reviews.GetReviewFormsStubsCase
 import com.example.perforatormobile.domain.usecases.self_review.GetAllCurrentUserPeersUseCase
 import com.example.perforatormobile.domain.usecases.self_review.GetSelfReviewFormUseCase
@@ -16,11 +18,13 @@ import javax.inject.Inject
 @HiltViewModel
 class PeersReviewViewModel @Inject constructor(
     private val getEmptyReviewFormStubs: GetReviewFormsStubsCase,
-    private val getAllCurrentUserPeers: GetAllCurrentUserPeersUseCase
+    private val getAllCurrentUserPeers: GetAllCurrentUserPeersUseCase,
+    private val getMyManagerUseCase: GetMyManagerUseCase,
+    private val getAllSubordinatesUseCase: GetAllSubordinatesUseCase
 ): ViewModel() {
-    val peersToReview: MutableStateFlow<List<Person>> = MutableStateFlow(emptyList())
-    val managerToReview: MutableStateFlow<Person?> = MutableStateFlow(null)
-    val subordinatesToReview: MutableStateFlow<List<Person>> = MutableStateFlow(emptyList())
+    val listsOfPeopleToGrade = MutableStateFlow(ListsOfPeopleToGrade(
+        emptyList(), null, emptyList()
+    ))
     val reviewFormStubs: MutableStateFlow<ReviewFormsStubs> = MutableStateFlow(ReviewFormsStubs())
 
     suspend fun fetchQuestionsStubs()
@@ -34,8 +38,14 @@ class PeersReviewViewModel @Inject constructor(
 
     suspend fun fetchPeopleToReview()
     {
-        peersToReview.value = getAllCurrentUserPeers().body()!!
-
+        val peersToReview = getAllCurrentUserPeers().body()!!
+        val managerToReview = getMyManagerUseCase().body()
+        val subordinatesToReview = getAllSubordinatesUseCase().body()!!
+        listsOfPeopleToGrade.value = ListsOfPeopleToGrade(
+            peersToReview,
+            managerToReview,
+            subordinatesToReview
+        )
     }
 
 }

@@ -36,6 +36,8 @@
     <string name="subordinates_menu_item_title">Подчинённые</string>
     <string name="results_menu_item_title">Итоги</string>
     <string name="review_peers_fragment_title">Пиры, которых нужно оценить</string>
+    <string name="review_manager_title">Менеджер, которого нужно оценить</string>
+    <string name="review_subordinates_title">Подчинённые, которых нужно оценить</string>
     <string name="grade_questions_title">Ответьте на вопросы…</string>
     <string name="save_grade_questions_button">Сохранить</string>
     <string name="cant_grade_peer_button">Не могу ответить на большую часть вопросов</string>

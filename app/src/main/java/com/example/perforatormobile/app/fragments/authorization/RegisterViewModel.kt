@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import javax.inject.Inject
 
 @HiltViewModel
@@ -96,7 +97,7 @@ class RegisterViewModel @Inject constructor(
 
     }
 
-    fun onRegisterButtonClicked() {
+    fun onRegisterButtonClicked(stream: InputStream, ext: String) {
         viewModelScope.launch {
             if (_editUserNameHelper.value == null && _editPasswordHelper.value == null &&
                 _editPhoneHelper.value == null && userPhotoURI.value !== null
@@ -105,7 +106,8 @@ class RegisterViewModel @Inject constructor(
                     _username.value,
                     _password.value,
                     _phone.value,
-                    userPhotoFilePath
+                    stream,
+                    ext
                 )
             }
         }

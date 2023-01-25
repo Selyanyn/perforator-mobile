@@ -2,11 +2,14 @@ package com.example.perforatormobile.app.fragments.authorization
 
 import android.app.Activity
 import android.content.Intent
+import android.database.Cursor
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -18,6 +21,9 @@ import com.example.perforatormobile.R
 import com.example.perforatormobile.databinding.FragmentRegistrationBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
+import java.io.File
+
 
 @AndroidEntryPoint
 class RegisterFragment: Fragment() {
@@ -27,6 +33,19 @@ class RegisterFragment: Fragment() {
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             viewModel.userPhotoURI.value = data!!.data!!
+
+            val imageprojection = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor: Cursor = requireContext().contentResolver.query(
+                viewModel.userPhotoURI.value!!,
+                imageprojection,
+                null,
+                null,
+                null
+            )!!
+
+            cursor.moveToFirst()
+            val indexImage: Int = cursor.getColumnIndex(imageprojection[0])
+            viewModel.userPhotoFilePath = cursor.getString(indexImage)
         }
     }
 
@@ -100,7 +119,7 @@ class RegisterFragment: Fragment() {
         }
 
         binding.registerButton.setOnClickListener {
-            val cursor = requireContext().contentResolver.query(
+            /*val cursor = requireContext().contentResolver.query(
                 viewModel.userPhotoURI.value!!,
                 arrayOf(android.provider.MediaStore.Images.ImageColumns.DATA),
                 null,
@@ -108,8 +127,15 @@ class RegisterFragment: Fragment() {
             )!!
             cursor.moveToFirst()
             viewModel.userPhotoFilePath = cursor.getString(0)
-            cursor.close()
-            viewModel.onRegisterButtonClicked()
+            cursor.close()*/
+            val image = File(viewModel.userPhotoFilePath)
+            val stream = requireContext().contentResolver.openInputStream(
+                viewModel.userPhotoURI.value!!
+            )
+            val ext = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                requireContext().contentResolver.getType(viewModel.userPhotoURI.value!!)
+            )
+            viewModel.onRegisterButtonClicked(stream!!, "images/jpeg")
         }
 
         binding.alreadyRegisteredButton.setOnClickListener {
@@ -122,7 +148,7 @@ class RegisterFragment: Fragment() {
     private fun openImageChooser() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("images/jpeg", "images/png"))
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("images/jpeg"))
         resultLauncher.launch(intent)
     }
 }
