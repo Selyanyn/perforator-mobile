@@ -3,10 +3,12 @@ package com.example.perforatormobile.app.fragments.chosen_peers
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.perforatormobile.app.fragments.self_review.SelfReviewFragment
+import com.example.perforatormobile.app.fragments.self_review.SelfReviewFragment.Companion.CHOSEN_PEERS
 import com.example.perforatormobile.app.fragments.verify_chosen_peers.VerifyChosenPeersFragment
 import com.example.perforatormobile.domain.entities.Person
 import com.example.perforatormobile.domain.entities.PersonList
 import com.example.perforatormobile.domain.enums.ParentFragmentEnum
+import com.example.perforatormobile.domain.usecases.my_team.GetAllPeersOfASubordinate
 import com.example.perforatormobile.domain.usecases.my_team.SaveMyPeersUseCase
 import com.example.perforatormobile.domain.usecases.verify_peers.SavePeersOfACurrentUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,17 +18,23 @@ import javax.inject.Inject
 @HiltViewModel
 class ChosenPeersViewModel @Inject constructor(
     private val savePeersOfACurrentUser: SavePeersOfACurrentUser,
-    stateHandle: SavedStateHandle
+    private val getAllPeersOfASubordinate: GetAllPeersOfASubordinate,
+    private val stateHandle: SavedStateHandle
 ): ViewModel() {
     val currentUserId = stateHandle.get<Int>(VerifyChosenPeersFragment.SUBORDINATE_ID)!!
-    val chosenPeers: MutableList<Person> = if (stateHandle.contains(SelfReviewFragment.CHOSEN_PEERS))
-        stateHandle.get<PersonList>(SelfReviewFragment.CHOSEN_PEERS)!!.peersList
-    else mutableListOf(
-        Person(userId = 1, profileId = 1, username = "Pet owner",
-        photoUrl = "https://media-be.chewy.com/wp-content/uploads/shutterstock_492574771.jpg", sbis="125")
-    )
+    val chosenPeers: MutableStateFlow<List<Person>> = MutableStateFlow(emptyList())
 
     val arePeersSaved = MutableStateFlow(false)
+
+    suspend fun fetchPeers()
+    {
+        if (stateHandle.contains(CHOSEN_PEERS)) {
+            chosenPeers.value = stateHandle.get<PersonList>(CHOSEN_PEERS)!!.peersList
+        } else {
+            val peers = getAllPeersOfASubordinate(currentUserId).body()
+            chosenPeers.value = peers ?: emptyList()
+        }
+    }
 
     suspend fun verifyAndSavePeers()
     {
@@ -39,7 +47,7 @@ class ChosenPeersViewModel @Inject constructor(
                 it.userId
             })
         }*/
-        savePeersOfACurrentUser(currentUserId, chosenPeers.map {
+        savePeersOfACurrentUser(currentUserId, chosenPeers.value.map {
             it.userId
         })
 

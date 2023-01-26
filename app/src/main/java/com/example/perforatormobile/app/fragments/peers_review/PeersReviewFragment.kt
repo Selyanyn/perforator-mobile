@@ -28,30 +28,54 @@ class PeersReviewFragment: Fragment(R.layout.fragment_peers_review) {
     ): View {
         val binding = FragmentPeersReviewBinding.inflate(inflater, container, false)
 
-        val reviewedPeersAdapter = getPersonAdapter(viewModel.reviewFormStubs.value.peersReviewCategories)
-        binding.peersToReviewRecyclerView.adapter = reviewedPeersAdapter
-
-        val reviewedManagerAdapter = getPersonAdapter(viewModel.reviewFormStubs.value.managerReviewCategories)
-        binding.reviewManagerRecyclerView.adapter = reviewedManagerAdapter
-
-        val reviewedSubordinatesAdapter = getPersonAdapter(viewModel.reviewFormStubs.value.teamReviewCategories)
-        binding.reviewSubordinatesRecyclerView.adapter = reviewedSubordinatesAdapter
+        lateinit var reviewedPeersAdapter: VerifiedPeersListAdapter
+        lateinit var reviewedManagerAdapter: VerifiedPeersListAdapter
+        lateinit var reviewedSubordinatesAdapter: VerifiedPeersListAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.listsOfPeopleToGrade
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .collect {
-                    reviewedPeersAdapter.submitList(it.peers)
-                    if (it.manager !== null) {
-                        reviewedManagerAdapter.submitList(listOf(it.manager))
+                    if (it.peers.isNotEmpty() || it.manager != null || it.subordinates.isNotEmpty()) {
+                        reviewedPeersAdapter.submitList(
+                            it.peers
+                        )
+                        if (it.manager !== null) {
+                            reviewedManagerAdapter
+                                .submitList(listOf(it.manager))
+                        }
+                        reviewedSubordinatesAdapter
+                            .submitList(it.subordinates)
                     }
-                    reviewedSubordinatesAdapter.submitList(it.subordinates)
+                }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.reviewFormStubs
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect {
+                    if (it.peersReviewCategories.isNotEmpty()) {
+                        reviewedPeersAdapter =
+                            getPersonAdapter(viewModel.reviewFormStubs.value.peersReviewCategories)
+                        binding.peersToReviewRecyclerView.adapter = reviewedPeersAdapter
+                        reviewedManagerAdapter =
+                            getPersonAdapter(viewModel.reviewFormStubs.value.managerReviewCategories)
+                        binding.reviewManagerRecyclerView.adapter = reviewedManagerAdapter
+                        reviewedSubordinatesAdapter =
+                            getPersonAdapter(viewModel.reviewFormStubs.value.teamReviewCategories)
+                        binding.reviewSubordinatesRecyclerView.adapter = reviewedSubordinatesAdapter
+                        /*binding.peersToReviewRecyclerView.adapter = getPersonAdapter(it.peersReviewCategories)
+                    binding.reviewManagerRecyclerView.adapter = getPersonAdapter(it.managerReviewCategories)
+                    binding.reviewSubordinatesRecyclerView.adapter = getPersonAdapter(it.teamReviewCategories)
+*/
+                        viewModel.fetchPeopleToReview()
+                    }
                 }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.fetchQuestionsStubs()
-            viewModel.fetchPeopleToReview()
+            //viewModel.fetchPeopleToReview()
         }
 
         return binding.root

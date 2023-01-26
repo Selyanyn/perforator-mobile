@@ -46,4 +46,6 @@
     <string name="my_subordinates_results_text">Результаты моих подчинённых:</string>
     <string name="no_subordinates_text">У вас нет подчинённых</string>
     <string name="upload_user_image_text">Пожалуйста, загрузите фото</string>
+    <string name="self_review_inactive_title">Вы уже сдали селф-ревью :(</string>
+    <string name="results_inactive_title">Пока Performance Review продолжается, результаты недоступны!</string>
 </resources>

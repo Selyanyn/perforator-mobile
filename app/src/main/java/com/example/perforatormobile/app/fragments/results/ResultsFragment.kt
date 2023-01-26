@@ -13,7 +13,9 @@ import com.example.perforatormobile.app.ActivityViewModel
 import com.example.perforatormobile.app.fragments.peers_review.PeersReviewFragment
 import com.example.perforatormobile.app.fragments.verify_chosen_peers.VerifiedPeersListAdapter
 import com.example.perforatormobile.databinding.FragmentResultsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ResultsFragment: Fragment(R.layout.fragment_results) {
     private val viewModel: ResultsViewModel by viewModels()
 
