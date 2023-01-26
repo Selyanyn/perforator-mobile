@@ -32,10 +32,11 @@ class ChosenPeersFragment: Fragment(R.layout.fragment_chosen_peers) {
         val binding = FragmentChosenPeersBinding.inflate(inflater, container, false)
 
         val peersAdapter = PeersListAdapter { position ->
-            viewModel.chosenPeers.removeAt(position)
+            viewModel.chosenPeers.value = viewModel.chosenPeers.value.filterIndexed { index, person ->
+                index != position
+            }
         }
         binding.selfReviewPeersRecyclerView.adapter = peersAdapter
-        peersAdapter.submitList(viewModel.chosenPeers)
 
         binding.addPeersButton.setOnClickListener {
             val arg = Bundle().apply {
@@ -53,6 +54,14 @@ class ChosenPeersFragment: Fragment(R.layout.fragment_chosen_peers) {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.chosenPeers
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect {
+                    peersAdapter.submitList(it)
+                }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.arePeersSaved
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .collect {
@@ -60,6 +69,10 @@ class ChosenPeersFragment: Fragment(R.layout.fragment_chosen_peers) {
                         findNavController().navigate(R.id.action_navigation_chosen_peers_to_verify_peers)
                     }
                 }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.fetchPeers()
         }
 
         return binding.root

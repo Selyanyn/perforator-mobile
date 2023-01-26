@@ -3,8 +3,10 @@ package com.example.perforatormobile.app.fragments.results
 import androidx.lifecycle.ViewModel
 import com.example.perforatormobile.domain.entities.Person
 import com.example.perforatormobile.domain.usecases.GetCurrentUserUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class ResultsViewModel @Inject constructor(
     val getCurrentUserUseCase: GetCurrentUserUseCase
 ): ViewModel() {

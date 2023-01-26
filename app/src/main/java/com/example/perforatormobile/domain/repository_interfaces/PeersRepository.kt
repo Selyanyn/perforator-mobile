@@ -32,7 +32,7 @@ interface PeersRepository {
     fun isUserApproved(id: Int): Boolean
 
     @GET("perforator/peers/id")
-    suspend fun getAllPeersOfASubordinate(): Response<List<Person>?>
+    suspend fun getAllPeersOfASubordinate(@Query("id") id: Int): Response<List<Person>?>
 
     @POST("perforator/peers/save/user")
     suspend fun savePeersOfACurrentUser(

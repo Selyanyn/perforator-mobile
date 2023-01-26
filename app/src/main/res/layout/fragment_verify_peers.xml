@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/verify_peers_title"
-        android:textAppearance="?textAppearanceHeadline5"
+        android:textAppearance="?textAppearanceHeadline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/verify_peers_title"
-        android:text="@string/users_not_sent_self_review_text"/>
+        android:text="@string/users_not_sent_self_review_text"
+        android:textAppearance="?textAppearanceHeadline6"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/users_not_sent_self_review_recycler_view"
@@ -42,7 +43,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/users_not_sent_self_review_recycler_view"
-        android:text="@string/not_verified_users_title"/>
+        android:text="@string/not_verified_users_title"
+        android:textAppearance="?textAppearanceHeadline6"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/not_verified_users_recycler_view"
@@ -62,7 +64,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/not_verified_users_recycler_view"
-        android:text="@string/verified_users_title"/>
+        android:text="@string/verified_users_title"
+        android:textAppearance="?textAppearanceHeadline6"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/verified_users_recycler_view"

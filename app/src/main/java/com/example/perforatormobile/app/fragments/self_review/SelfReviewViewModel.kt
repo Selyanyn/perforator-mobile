@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.perforatormobile.domain.entities.Grade
 import com.example.perforatormobile.domain.entities.Person
+import com.example.perforatormobile.domain.entities.PersonList
 import com.example.perforatormobile.domain.entities.Review
 import com.example.perforatormobile.domain.usecases.my_team.SaveMyPeersUseCase
 import com.example.perforatormobile.domain.usecases.reviews.EditSelfReviewUseCase
@@ -20,7 +21,7 @@ class SelfReviewViewModel @Inject constructor(
     private val getAllCurrentUserPeersUseCase: GetAllCurrentUserPeersUseCase,
     private val editSelfReviewUseCase: EditSelfReviewUseCase,
     private val saveMyPeersUseCase: SaveMyPeersUseCase,
-    stateHandle: SavedStateHandle
+    private val stateHandle: SavedStateHandle
 ) : ViewModel() {
 
     val selfReview : MutableStateFlow<Review?> = MutableStateFlow(null)
@@ -36,7 +37,12 @@ class SelfReviewViewModel @Inject constructor(
 
     suspend fun fetchAllChosenPeers()
     {
-        chosenPeers.value = getAllCurrentUserPeersUseCase().body()?.toMutableList()
+        if (stateHandle.contains(SelfReviewFragment.CHOSEN_PEERS)) {
+            chosenPeers.value = stateHandle.get<PersonList>(SelfReviewFragment.CHOSEN_PEERS)!!.peersList
+        } else {
+            val peers = getAllCurrentUserPeersUseCase().body()
+            chosenPeers.value = peers?.toMutableList() ?: mutableListOf()
+        }
     }
 
     suspend fun saveReview(isDraft: Boolean)

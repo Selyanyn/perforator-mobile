@@ -36,11 +36,21 @@ class SelfReviewFragment: Fragment(R.layout.fragment_self_review) {
         binding.selfReviewRecyclerView.adapter = gradesAdapter
 
         val peersAdapter = PeersListAdapter { position ->
-            viewModel.chosenPeers.value!!.removeAt(position)
+            viewModel.chosenPeers.value = viewModel.chosenPeers.value!!.filterIndexed { index, person ->
+                position != index
+            }.toMutableList()
         }
         binding.selfReviewPeersRecyclerView.adapter = peersAdapter
         binding.selfReviewRecyclerView.isNestedScrollingEnabled = true
-        peersAdapter.submitList(viewModel.chosenPeers.value)
+        //peersAdapter.submitList(viewModel.chosenPeers.value)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.chosenPeers
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect {
+                    peersAdapter.submitList(it)
+                }
+        }
 
         binding.addPeersButton.setOnClickListener {
             val arg = Bundle().apply {
@@ -53,7 +63,12 @@ class SelfReviewFragment: Fragment(R.layout.fragment_self_review) {
             viewModel.selfReview
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .collect {
-                    gradesAdapter.submitList(if (it !== null) it.grades else emptyList())
+                    if (it!!.isDraft) {
+                        gradesAdapter.submitList(it.grades)
+                    } else {
+                        binding.selfReviewRoot.visibility = View.GONE
+                        binding.selfReviewInactiveTitle.visibility = View.VISIBLE
+                    }
                 }
         }
 
